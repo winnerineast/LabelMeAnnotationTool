@@ -50,15 +50,18 @@ function StartupLabelMe() {
     else {
       // This function gets run after image is loaded:
       function main_media_onload_helper() {
-      // Set the image dimensions:
-      main_media.SetImageDimensions();
-          
-      // Read the XML annotation file:
-      var anno_file = main_media.GetFileInfo().GetFullName();
-      anno_file = 'Annotations/' + anno_file.substr(0,anno_file.length-4) + '.xml' + '?' + Math.random();
-      ReadXML(anno_file,LoadAnnotationSuccess,LoadAnnotation404);
-      main_media.GetFileInfo().PreFetchImage();
-          };
+          // Set the image dimensions:
+          console.log('Imageloaded')
+          main_media.SetImageDimensions();
+              
+          // Read the XML annotation file:
+          var anno_file = main_media.GetFileInfo().GetFullName();
+          anno_file = 'Annotations/' + anno_file.substr(0,anno_file.length-4) + '.xml' + '?' + Math.random();
+          ReadXML(anno_file,LoadAnnotationSuccess,LoadAnnotation404);
+          main_media.GetFileInfo().PreFetchImage();
+
+          $("#imcanvas").show();
+      };
 
       // Get the image:
       main_media.GetNewImage(main_media_onload_helper);
@@ -232,6 +235,7 @@ function FinishStartup() {
   $('#changeuser').attr("onclick","javascript:show_enterUserNameDIV(); return false;");
   $('#userEnter').attr("onkeyup","javascript:var c; if(event.keyCode)c=event.keyCode; if(event.which)c=event.which; if(c==13 || c==27) changeAndDisplayUserName(c);");
   $('#xml_url').attr("onclick","javascript:GetXMLFile();");
+  $('#prevImage').attr("onclick","javascript:ShowPrevImage()");
   $('#nextImage').attr("onclick","javascript:ShowNextImage()");
   $('#lessContrast').attr("onclick","javascript:main_media.AugmentContrast()");
   $('#moreContrast').attr("onclick","javascript:main_media.ReduceContrast()");
